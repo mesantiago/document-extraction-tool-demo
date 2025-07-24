@@ -1,9 +1,37 @@
 'use client';
-import React, {useCallback, useState} from 'react'
-import {FileRejection, useDropzone} from 'react-dropzone'
+import DocumentService from '@/services/Document';
+import React, {useCallback, useState} from 'react';
+import {FileRejection, useDropzone} from 'react-dropzone';
+import ReportResult from './ReportResult';
 
-export default function FileDropZone() {
+export type OnSuccessfulDropCallback = (file: File) => void;
+
+type FileDropZoneProps = {
+  showDropZone: boolean
+  setDropZoneVisibility: (visibility: boolean) => void
+}
+
+export default function FileDropZone({ showDropZone, setDropZoneVisibility } : FileDropZoneProps) {
   const [errorMessage, setErrorMessage] = useState('');
+  const [extractedReport, setExtractedReport] = useState();
+
+  const reset = () => {
+    setExtractedReport(undefined);
+    setDropZoneVisibility(true);
+    setErrorMessage('');
+  }
+
+  const uploadDocument = useCallback(async (document: File) => {
+    try {
+      const result = await DocumentService.submit(document);
+      setExtractedReport(result);
+      setDropZoneVisibility(false);
+      console.log(result);
+    } catch (err) {
+      const errorMessage = err as Error;
+      setErrorMessage(errorMessage?.message || 'Server error');
+    }
+  }, [setDropZoneVisibility]);
 
   const onDrop = useCallback((acceptedFiles: File[], fileRejections: FileRejection[]) => {
     const errors = fileRejections.reduce((list: string[], rejection) => {
@@ -14,10 +42,10 @@ export default function FileDropZone() {
       });
       return list;
     }, []);
+
+    uploadDocument(acceptedFiles[0]);
     setErrorMessage(errors.join(';'));
-    const acceptedFile = acceptedFiles[0];
-    console.log(acceptedFile);
-  }, [setErrorMessage]);
+  }, [setErrorMessage, uploadDocument]);
 
   const {getRootProps, getInputProps} = useDropzone({
     accept: { 'application/pdf': ['.pdf'] },
@@ -29,10 +57,21 @@ export default function FileDropZone() {
   return (
     <div className="mt-15 text-center">
       <p className="text-red-500 mb-3">{errorMessage}</p>
-      <div {...getRootProps()} className="h-100 flex items-center justify-center border-dashed border-3 border-gray-500 rounded-2xl">
-        <input {...getInputProps()} />
-        <p>Drag and drop or select a file to begin</p>
-      </div>
+      { showDropZone ? (
+          <div {...getRootProps()} className="h-100 flex items-center justify-center border-dashed border-3 border-gray-500 rounded-2xl">
+            <input {...getInputProps()} />
+            <p>Drag and drop or select a file to begin</p>
+          </div>
+        ) : (
+          <div>
+            { extractedReport ? <ReportResult result={extractedReport}></ReportResult> : null }
+            <button className="bg-purple-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={reset}>
+              Start over
+            </button>
+          </div>
+        )
+      }
+
     </div>
   )
 }
