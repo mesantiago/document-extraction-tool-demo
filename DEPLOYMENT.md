@@ -33,13 +33,13 @@ Verify if nvm is installed
 ```
 nvm -v
 ```
-Install node 16
+Install node 20
 ```
-nvm install 16
+nvm install 20
 ```
 Set it as default
 ```
-nvm alias default 16
+nvm alias default 20
 ```
 
 ### Install global node packages
@@ -77,8 +77,16 @@ Pull latest and install dependencies
 cd ../frontend
 yarn
 ```
+Update .env file
+```
+cp .env.sample .env.local
+vi .env.local
+```
 Build and run the client app
 ```
-yarn build
-yarn start
+yarn prod
+```
+Forward port 80 to 3001
+```
+sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3001
 ```

@@ -5,14 +5,14 @@ import fs from 'fs';
 import ExtractReportResult from '../interfaces/ExtractReportResult';
 
 export const extract = async (req: Request, res: Response, next: NextFunction) => {
+  const document = req.file;
+  if (!document) {
+    res.status(422).json({
+      message: 'Invalid input'
+    });
+    return;
+  }
   try {
-    const document = req.file;
-    if (!document) {
-      res.status(422).json({
-        message: 'Invalid input'
-      });
-      return;
-    }
     // Extract text from pdf
     const extractedText: string = await documentHelper.extract(document);
     // Get summary from openai
@@ -22,9 +22,9 @@ export const extract = async (req: Request, res: Response, next: NextFunction) =
       ...summary,
       fileName: document.originalname
     });
-    // Delete the file from the server.
-    fs.unlinkSync(document.path);
   } catch (error) {
     next(error);
   }
+  // Delete the file from the server.
+  fs.unlinkSync(document.path);
 };

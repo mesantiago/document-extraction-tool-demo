@@ -30,7 +30,6 @@ export default function FileDropZone({ showDropZone, setDropZoneVisibility } : F
       setDropZoneVisibility(false);
       const result = await DocumentService.submit(document);
       setExtractedReport(result);
-      console.log(result);
     } catch (err) {
       const error = err as AxiosError;
       const { message } = (error?.response?.data || error) as Error;

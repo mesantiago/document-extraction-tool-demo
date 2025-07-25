@@ -80,7 +80,14 @@ cd ../frontend
 # Install frontend dependencies
 yarn install
 ```
-## Running the Backend
+
+## Frontend Configuration
+Create a .env.local file inside the frontend/ directory by copying the .env.sample file and adjust the values like the openai key
+```bash
+cp .env.sample .env.local
+```
+
+## Running the Frontend
 
 ```bash
 # Start in development mode
@@ -117,12 +124,12 @@ frontend/
 ├── public/
 ├── src/
 │   ├── app/
-│   ├── config/
 │   ├── interfaces/
 │   ├── services/
 │   └── ui/
 │       ├── charts/
 │       └── tabs/
+├── .env.local
 └── package.json
 ```
 ---
