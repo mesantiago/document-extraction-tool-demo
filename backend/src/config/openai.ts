@@ -25,6 +25,10 @@ const config: Config = {
                 parameters: {
                     type: "object",
                     properties: {
+                        overview: {
+                            type: "string",
+                            description: "A section that orients the reader and sets the stage for a more detailed discussion in the document. It should be short as much as possible."
+                        },
                         summary: {
                             type: "object",
                             description: "Overall metrics summarizing the watershed project.",
@@ -46,13 +50,13 @@ const config: Config = {
                         },
                         goals: {
                             type: "array",
-                            description: "A list of specific milestones or goals and their outcomes outlined in the watershed plan.",
+                            description: "A list of milestones and their outcomes outlined in the watershed plan.",
                             items: {
                                 type: "object",
                                 properties: {
                                     description: {
                                         type: "string",
-                                        description: "A short description or title of the project goal or milestone."
+                                        description: "A short description or title of the project milestone or goal."
                                     },
                                     expectedOutcome: {
                                         type: "string",
@@ -60,7 +64,7 @@ const config: Config = {
                                     },
                                     planTimelineSchedule: {
                                         type: "array",
-                                        description: "The planned/expected months this goal will cover in the project timeline, start month and end month.",
+                                        description: "The planned/expected completion date in months, start month and end month, defaults to 0 if cannot be identified",
                                         items: {
                                             type: "integer"
                                         }

@@ -1,4 +1,5 @@
 interface ExtractReportResult {
+  overview: string,
   summary: {
     totalGoals: number;
     totalBMPs: number;
