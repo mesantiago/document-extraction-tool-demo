@@ -27,7 +27,7 @@ const config: Config = {
                     properties: {
                         overview: {
                             type: "string",
-                            description: "A section that orients the reader and sets the stage for a more detailed discussion in the document. It should be short as much as possible."
+                            description: "A section that orients the reader and sets the stage for a more detailed discussion in the document."
                         },
                         summary: {
                             type: "object",
@@ -39,7 +39,7 @@ const config: Config = {
                                 },
                                 totalBMPs: {
                                     type: "number",
-                                    description: "The total number of Best Management Practices (BMPs) mentioned in the plan."
+                                    description: "The total number of Best Management Practices (BMPs) activity mentioned in the plan."
                                 },
                                 completionRate: {
                                     type: "number",
@@ -50,7 +50,7 @@ const config: Config = {
                         },
                         goals: {
                             type: "array",
-                            description: "A list of milestones and their outcomes outlined in the watershed plan.",
+                            description: "From the milestones section of the document; the list of milestone and their outcomes outlined in the watershed plan.",
                             items: {
                                 type: "object",
                                 properties: {
@@ -60,11 +60,11 @@ const config: Config = {
                                     },
                                     expectedOutcome: {
                                         type: "string",
-                                        description: "The intended or measurable outcome associated with this goal, such as water quality improvement or BMP implementation."
+                                        description: "If mentioned in the document - the intended or measurable outcome associated with this goal, such as water quality improvement or BMP implementation."
                                     },
                                     planTimelineSchedule: {
                                         type: "array",
-                                        description: "The planned/expected completion date in months, start month and end month, defaults to 0 if cannot be identified",
+                                        description: "The planned/expected duration in months the goal should take place in the timeline, start month and end month, defaults to 0 if cannot be identified",
                                         items: {
                                             type: "integer"
                                         }
@@ -75,7 +75,7 @@ const config: Config = {
                         },
                         bmps: {
                             type: "array",
-                            description: "A list of Best Management Practices (BMPs) planned or implemented in the watershed.",
+                            description: "A list of Best Management Practices (BMPs) activities planned or implemented in the watershed and their estimated budget.",
                             items: {
                                 type: "object",
                                 properties: {
@@ -103,51 +103,94 @@ const config: Config = {
                                 required: ["name"]
                             }
                         },
-                        "implementation": {
-                            "type": "array",
-                            "items": {
-                            "type": "object",
-                            "properties": {
-                                "activity": { "type": "string" },
-                                "timeline": {
-                                    "type": "string",
-                                    description: "The implementation months this goal will cover in the project timeline, start month and end month."
+                        implementation: {
+                            type: "array",
+                            items: {
+                                type: "object",
+                                properties: {
+                                    activity: {
+                                        description: "The name of the implementation activity",
+                                        type: "string"
+                                    },
+                                    timeline: {
+                                        type: "array",
+                                        description: "The planned/expected duration the implementation activity should take place in the timeline, start month and end month, defaults to 0 if cannot be identified",
+                                        items: {
+                                            type: "integer"
+                                        }
+                                    }
+                                },
+                                required: ["activity"]
+                            }
+                        },
+                        monitoring: {
+                            type: "array",
+                            description: "List of water quality parameters that are monitored to assess watershed health and BMP effectiveness.",
+                            items: {
+                                type: "object",
+                                properties: {
+                                    parameter: {
+                                        type: "string",
+                                        description: "The name of the water quality parameter being monitored (e.g., 'Dissolved Oxygen', 'Total Suspended Solids')."
+                                    },
+                                    threshold: {
+                                        type: "string",
+                                        description: "The numeric or descriptive threshold value used to assess compliance or impairment (e.g., '≥ 5.0 mg/L')."
+                                    },
+                                    notes: {
+                                        type: "string",
+                                        description: "Additional context, interpretation, or details about how the parameter is used or why it’s important."
+                                    }
+                                },
+                                required: ["parameter"]
+                            }
+                        },
+                        outreach: {
+                            type: "array",
+                            description: "List of outreach and public engagement activities conducted as part of the watershed plan.",
+                            items: {
+                                type: "object",
+                                properties: {
+                                activity: {
+                                    type: "string",
+                                    description: "The name or type of outreach activity (e.g., 'Public Meeting', 'BMP Workshop', 'Flyer Distribution')."
+                                },
+                                audience: {
+                                    type: "string",
+                                    description: "The intended audience of the activity (e.g., 'Farmers', 'General Public', 'School Children')."
+                                },
+                                deliveryMethod: {
+                                    type: "string",
+                                    description: "How the outreach was delivered (e.g., 'In-person', 'Online', 'Social Media')."
                                 }
-                            },
-                            "required": ["activity"]
+                                },
+                                required: ["activity"]
                             }
                         },
-                        "monitoring": {
-                            "type": "array",
-                            "items": {
-                            "type": "object",
-                            "properties": {
-                                "parameter": { "type": "string" },
-                                "threshold": { "type": "string" }
-                            },
-                            "required": ["parameter", "threshold"]
-                            }
-                        },
-                        "outreach": {
-                            "type": "array",
-                            "items": {
-                            "type": "object",
-                            "properties": {
-                                "activity": { "type": "string" },
-                                "audience": { "type": "string" }
-                            },
-                            "required": ["activity"]
-                            }
-                        },
-                        "geographicAreas": {
-                            "type": "array",
-                            "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": { "type": "string" },
-                                "type": { "type": "string" }
-                            },
-                            "required": ["name"]
+                        geographicAreas: {
+                            type: "array",
+                            description: "List of named geographic areas discussed in the report.",
+                            items: {
+                                type: "object",
+                                properties: {
+                                    name: {
+                                        type: "string",
+                                        description: "The full name of the geographic area (e.g., 'Lower Fox River Subwatershed')."
+                                    },
+                                    type: {
+                                        type: "string",
+                                        description: "The classification or type of region (e.g., 'Subwatershed', 'HUC-12', 'County')."
+                                    },
+                                    priorityLevel: {
+                                        type: "string",
+                                        description: "The assigned priority of the area if available (e.g., 'High')."
+                                    },
+                                    notes: {
+                                        type: "string",
+                                        description: "Additional comments, context, or attributes of the area."
+                                    }
+                                },
+                                required: ["name"]
                             }
                         }
                     },

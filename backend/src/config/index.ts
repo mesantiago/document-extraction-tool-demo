@@ -2,7 +2,7 @@ interface Config {
   port: number;
   nodeEnv: string;
   clientUrl: string;
-}
+};
 
 const config: Config = {
   port: Number(process.env.PORT) || 3000,

@@ -19,19 +19,23 @@ interface ExtractReportResult {
   }>;
   implementation: Array<{
     activity: string;
-    implementationTimelineSchedule?: number[];
+    timeline?: number[];
   }>;
   monitoring: Array<{
     parameter: string;
-    threshold: string;
+    threshold?: string;
+    notes?: string;
   }>;
   outreach: Array<{
     activity: string;
     audience?: string;
+    deliveryMethod?: string;
   }>;
   geographicAreas: Array<{
     name: string;
     type?: string;
+    priorityLevel?: string;
+    notes?: string;
   }>;
 }
 

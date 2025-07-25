@@ -11,7 +11,7 @@ export default (key?: string) => {
 
 export const getSummary = async (input: string): Promise<ExtractReportResult> => {
   const response = await client.chat.completions.create({
-    model: "gpt-4",
+    model: "gpt-4.1",
     messages: [
       { role: "system", content: config.systemPrompt },
       { role: "user", content: input }
