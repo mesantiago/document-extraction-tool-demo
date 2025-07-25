@@ -13,13 +13,17 @@ export const extract = async (req: Request, res: Response, next: NextFunction) =
       });
       return;
     }
+    // Extract text from pdf
     const extractedText: string = await documentHelper.extract(document);
+    // Get summary from openai
     const summary: ExtractReportResult = await openai.getSummary(extractedText);
+    // Send response back
     res.json({
       ...summary,
       fileName: document.originalname
     });
-    fs.unlinkSync(document.path); // Delete the file from the server.
+    // Delete the file from the server.
+    fs.unlinkSync(document.path);
   } catch (error) {
     next(error);
   }

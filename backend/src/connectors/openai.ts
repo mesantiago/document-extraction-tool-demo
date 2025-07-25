@@ -19,7 +19,6 @@ export const getSummary = async (input: string): Promise<ExtractReportResult> =>
     tools: config.tools,
     tool_choice: config.tool_choice
   });
-  // return response;
   const toolCalls = response.choices[0].message.tool_calls;
   if (toolCalls && toolCalls.length) {
     return JSON.parse(toolCalls[0].function.arguments) as ExtractReportResult;

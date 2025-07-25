@@ -8,6 +8,7 @@ import { errorHandler } from './middlewares/errorHandler';
 
 const app = express();
 
+// Middlewares
 app.use(
   cors({
     origin: config.clientUrl
@@ -19,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'public/')));
 // Routes
 app.use('/api/document', documentRoutes);
 app.get('/{*splat}', (_req, res) => {
-  res.sendFile('index.html', { root: path.join(__dirname, 'public/') });
+  res.status(404).send('Sorry! Page not found!');
 });
 
 // Global error handler (should be after routes)
