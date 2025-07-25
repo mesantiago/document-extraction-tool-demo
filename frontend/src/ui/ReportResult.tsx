@@ -50,12 +50,12 @@ export default function ReportResult({ result } : ReportResultProps) {
             </li>
           ))}
         </ul>
-        { currentTab === 'summary' ? <SummaryTab summary={result.summary} /> : null }
+        { currentTab === 'summary' ? <SummaryTab summary={result.summary} overview={result.overview} /> : null }
         { currentTab === 'goals' ? <GoalsTab goals={result.goals} /> : null}
         { currentTab === 'bmps' ? <BMPsTab bmps={result.bmps} /> : null}
         { currentTab === 'implementation' ? <ImplementationTab implementation={result.implementation} /> : null}
-        { currentTab === 'monitoring' ? <MonitoringTab monitoring={result.monitoring} /> : null}
-        { currentTab === 'outreach' ? <OutreachTab outreach={result.outreach} /> : null}
+        { currentTab === 'monitoring' ? <MonitoringTab activities={result.monitoring} /> : null}
+        { currentTab === 'outreach' ? <OutreachTab activities={result.outreach} /> : null}
         { currentTab === 'geographicAreas' ? <GeographicAreasTab geographicAreas={result.geographicAreas} /> : null}
       </div>
     </div>

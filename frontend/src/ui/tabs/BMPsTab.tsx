@@ -8,10 +8,11 @@ type BMPsTabProps = {
 };
 
 const BMPsTab = ({ bmps }: BMPsTabProps) => {
+  const hasCostData: boolean = !!bmps.find(b => b.totalCost);
   return <div className="flex flex-col text-sm">
-    <div className="my-5 mx-auto max-w-xl h-70 w-full">
+    {hasCostData ? <div className="my-5 mx-auto h-80 w-full">
       <BMPCostPieChart bmps={bmps}/>
-    </div>
+    </div>: null}
     <div>
       <p className="font-bold text-center my-5">Best Management Practices</p>
       <BMPsCostTable bmps={bmps} />

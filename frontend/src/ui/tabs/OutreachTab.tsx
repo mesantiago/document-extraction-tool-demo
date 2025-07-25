@@ -1,11 +1,15 @@
-import { Outreach } from '@/interfaces/ExtractReportResult';
+import { OutreachActivities } from '@/interfaces/ExtractReportResult';
+import OutreachActivitiesTable from '../charts/OutreachActivitiesTable';
 
 type OutreachTabProps = {
-  outreach: Outreach[]
+  activities: OutreachActivities[]
 };
 
-const OutreachTab = ({ outreach }: OutreachTabProps) => {
-  return <div></div>;
+const OutreachTab = ({ activities }: OutreachTabProps) => {
+  return <div className="text-sm">
+    <p className="font-bold text-center my-5">Outreach Activities</p>
+    <OutreachActivitiesTable activities={activities} />
+  </div>;
 };
 
 export default OutreachTab;

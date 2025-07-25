@@ -3,14 +3,15 @@ import TotalChart from "@/ui/charts/TotalChart";
 import { Summary } from '@/interfaces/ExtractReportResult';
 
 type SummaryTabProps = {
-  summary: Summary
+  summary: Summary,
+  overview: string
 };
 
-const SummaryTab = ({ summary }: SummaryTabProps) => {
+const SummaryTab = ({ summary, overview }: SummaryTabProps) => {
   return <div className="flex flex-col md:flex-row text-sm">
-    <div className="md:grow my-5">
+    <div className="md:grow my-5 px-5">
       <p className="font-bold text-center">Overview</p>
-      <p className="text-gray-500">Some text here</p>
+      <p className="text-gray-500 text-justify">{ overview || '' }</p>
     </div>
     <div className="flex flex-col text-center">
       <div className="md:max-w-3xs my-5">

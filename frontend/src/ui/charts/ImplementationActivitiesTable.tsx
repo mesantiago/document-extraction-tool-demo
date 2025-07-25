@@ -1,28 +1,26 @@
-import { Goal } from '@/interfaces/ExtractReportResult';
+import { ImplementationActivity } from '@/interfaces/ExtractReportResult';
 
-type GoalsTableProps = {
-  goals: Goal[]
+type ImplementationActivitysTableProps = {
+  activities: ImplementationActivity[]
 };
 
-export default function GoalsTable ({ goals }: GoalsTableProps) {
+export default function ImplementationActivitysTable ({ activities }: ImplementationActivitysTableProps) {
   return <div className="overflow-x-auto">
     <table className="min-w-full text-sm text-left text-gray-800 border border-gray-200 shadow-md rounded-md">
       <thead className="bg-gray-100 text-xs uppercase tracking-wider">
         <tr>
-          <th className="px-4 py-2 border">Goal Description</th>
-          <th className="px-4 py-2 border">Expected Outcome</th>
-          <th className="px-4 py-2 border">Probable Completion Date</th>
+          <th className="px-4 py-2 border">Activity</th>
+          <th className="px-4 py-2 border">Implementation Schedule</th>
         </tr>
       </thead>
       <tbody>
-        {goals.map((goal, index) => {
-          let [start, end] = goal.planTimelineSchedule || [];
+        {activities.map((activity, index) => {
+          let [start, end] = activity.timeline || [];
           if (!start && end) start = end;
           if (!end && start) end = start;
           return (
             <tr key={index} className="hover:bg-gray-50">
-              <td className="px-4 py-2 border">{goal.description}</td>
-              <td className="px-4 py-2 border">{goal.expectedOutcome}</td>
+              <td className="px-4 py-2 border">{activity.activity}</td>
               <td className="px-4 py-2 border">{start || end ? (start === end ? `Month ${start}` : `Months ${start}-${end}`) : ''}</td>
             </tr>
           );

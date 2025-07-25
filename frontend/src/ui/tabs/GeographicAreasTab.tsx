@@ -1,11 +1,15 @@
 import { GeographicalArea } from '@/interfaces/ExtractReportResult';
+import GeographicAreaTable from '../charts/GeographicAreasTable';
 
 type GeographicAreasTabProps = {
   geographicAreas: GeographicalArea[]
 };
 
 const GeographicAreasTab = ({ geographicAreas }: GeographicAreasTabProps) => {
-  return <div>Geographical Areas</div>;
+  return <div className="text-sm">
+    <p className="font-bold text-center my-5">Outreach Activities</p>
+    <GeographicAreaTable geographicAreas={geographicAreas} />
+  </div>;
 };
 
 export default GeographicAreasTab;

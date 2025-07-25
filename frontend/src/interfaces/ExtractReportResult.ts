@@ -18,34 +18,39 @@ export interface Summary {
   completionRate: number;
 };
 
-export interface Implementation {
+export interface ImplementationActivity {
   activity: string;
-  implementationTimelineSchedule?: number[];
+  timeline?: number[];
 };
 
-export interface Monitoring {
+export interface MonitoringActivity {
   parameter: string;
-  threshold: string;
+  threshold?: string;
+  notes?: string;
 };
 
-export interface Outreach {
+export interface OutreachActivities {
   activity: string;
   audience?: string;
+  deliveryMethod?: string;
 };
 
 export interface GeographicalArea {
   name: string;
   type?: string;
+  priorityLevel?: string;
+  notes?: string;
 };
 
 interface ExtractReportResult {
   fileName: string,
+  overview: string,
   summary: Summary;
   goals: Array<Goal>;
   bmps: Array<BMP>;
-  implementation: Array<Implementation>;
-  monitoring: Array<Monitoring>;
-  outreach: Array<Outreach>;
+  implementation: Array<ImplementationActivity>;
+  monitoring: Array<MonitoringActivity>;
+  outreach: Array<OutreachActivities>;
   geographicAreas: Array<GeographicalArea>;
 }
 

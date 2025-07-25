@@ -10,8 +10,7 @@ const BMPsCostTable = ({ bmps }: BMPsCostTableProps) => (
       <thead className="bg-gray-100">
         <tr>
           <th className="px-4 py-2 border">BMP</th>
-          <th className="px-4 py-2 border">Unit</th>
-          <th className="px-4 py-2 border">Unit Count</th>
+          <th className="px-4 py-2 border">Quantity</th>
           <th className="px-4 py-2 border">Unit Cost</th>
           <th className="px-4 py-2 border">Total Cost</th>
         </tr>
@@ -20,10 +19,9 @@ const BMPsCostTable = ({ bmps }: BMPsCostTableProps) => (
         {bmps.map((bmp, idx) => (
           <tr key={idx} className="hover:bg-gray-50">
             <td className="px-4 py-2 border">{bmp.name}</td>
-            <td className="px-4 py-2 border">{bmp.unit || '—'}</td>
-            <td className="px-4 py-2 border">{bmp.unitCount || '-'}</td>
-            <td className="px-4 py-2 border">${bmp.unitCost?.toFixed(2) || '-'}</td>
-            <td className="px-4 py-2 border">${bmp.totalCost?.toLocaleString() || '-'}</td>
+            <td className="px-4 py-2 border">{bmp.unitCount || '-'} {bmp.unitCount && bmp.unit || ''}</td>
+            <td className="px-4 py-2 border">{bmp.unitCost?.toFixed(2) || '-'}</td>
+            <td className="px-4 py-2 border">{bmp.totalCost?.toLocaleString() || '-'}</td>
           </tr>
         ))}
       </tbody>

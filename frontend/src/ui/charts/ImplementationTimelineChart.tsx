@@ -1,4 +1,4 @@
-import { Goal } from '@/interfaces/ExtractReportResult';
+import { ImplementationActivity } from '@/interfaces/ExtractReportResult';
 import {
   Chart as ChartJS,
   LinearScale,
@@ -20,20 +20,20 @@ ChartJS.register(
   Title
 );
 
-type GoalsTimelineChartProps = {
-  goals: Goal[]
+type ImplementationTimelineChartProps = {
+  activities: ImplementationActivity[]
 };
 
-export default function GoalsTimelineChart ({ goals }: GoalsTimelineChartProps) {
+export default function ImplementationTimelineChart ({ activities }: ImplementationTimelineChartProps) {
   let maxMonth = 1;
-  const datasets = goals.map((goal, index) => {
-    let [start, end] = goal.planTimelineSchedule || [];
+  const datasets = activities.map((activity, index) => {
+    let [start, end] = activity.timeline || [];
     if (!start && end) start = end;
     if (!end && start) end = start;
     if (end > maxMonth) maxMonth = end;
 
     return {
-      label: goal.description,
+      label: activity.activity,
       data: [
         { x: start, y: index + 1 },
         { x: end, y: index + 1 },
@@ -63,7 +63,7 @@ export default function GoalsTimelineChart ({ goals }: GoalsTimelineChartProps) 
       },
       title: {
         display: true,
-        text: 'Goal Timeline (Months)',
+        text: 'Implementation Timeline (Months)',
       },
     },
     scales: {
@@ -81,14 +81,14 @@ export default function GoalsTimelineChart ({ goals }: GoalsTimelineChartProps) 
       y: {
         title: {
           display: true,
-          text: 'Goals',
+          text: 'Activity',
         },
         ticks: {
           stepSize: 1,
-          callback: (_: string | number, index: number) => goals[index]?.description.slice(0, 30) + (goals[index]?.description.length > 30 ? '...' : ''),
+          callback: (_: string | number, index: number) => activities[index]?.activity.slice(0, 30) + (activities[index]?.activity.length > 30 ? '...' : ''),
         },
         min: 1,
-        max: goals.length,
+        max: activities.length,
       },
     },
   };
