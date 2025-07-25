@@ -22,6 +22,10 @@ export default function TotalChart ({ goals, bmps } : TotalChartProps) {
     plugins:{
       legend: {
         display: false
+      },
+      title: {
+        display: true,
+        text: `Summary`,
       }
     }
   };

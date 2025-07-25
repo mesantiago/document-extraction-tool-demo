@@ -14,10 +14,19 @@ export default function CompletionRateChart ({ completionRate } : CompletionRate
       {
         data: [completionRate, 100 - completionRate],
         backgroundColor: ['mediumpurple', 'lightgray'],
-        borderWidth: 1,
+        borderWidth: 1
       },
     ],
   };
 
-  return <Doughnut data={data} />;
+  const options = {
+    plugins: {
+      title: {
+        display: true,
+        text: `Completion Rate: ${completionRate}`,
+      }
+    }
+  };
+
+  return <Doughnut data={data} options={options}/>;
 };

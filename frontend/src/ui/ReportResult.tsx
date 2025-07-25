@@ -5,8 +5,13 @@
 import ExtractReportResult from "@/interfaces/ExtractReportResult";
 import { DocumentTextIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
-import CompletionRateChart from "./charts/CompletionRateChart";
-import TotalChart from "./charts/TotalChart";
+import SummaryTab from "./tabs/SummaryTab";
+import GoalsTab from "./tabs/GoalsTab";
+import BMPsTab from "./tabs/BMPsTab";
+import ImplementationTab from "./tabs/ImplementationTab";
+import OutreachTab from "./tabs/OutreachTab";
+import MonitoringTab from "./tabs/MonitoringTab";
+import GeographicAreasTab from "./tabs/GeographicAreasTab";
 
 type ReportResultProps = {
   result: ExtractReportResult
@@ -26,12 +31,13 @@ export default function ReportResult({ result } : ReportResultProps) {
   ];
   return (
     <div className="my-15">
-      <p className="text-sm font-semibold text-pretty text-gray-500 mx-5">
+      <p className="text-sm font-semibold text-pretty text-gray-500 mx-5 overflow-hidden text-ellipsis">
         <DocumentTextIcon className="size-6 inline align-bottom"></DocumentTextIcon> {result.fileName}
       </p>
       <div className="my-10 border-b border-gray-200 dark:border-gray-700 text-left">
         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-          {tabs.map(tab => (<li key={tab.id} className="me-2">
+          {tabs.map(tab => (
+            <li key={tab.id} className="me-2">
               <a href="#"
                 className={`inline-flex items-center justify-center p-4 border-b-2 rounded-t-lg group ${
                   currentTab === tab.id ?
@@ -41,28 +47,16 @@ export default function ReportResult({ result } : ReportResultProps) {
                 onClick={() => setCurrentTab(tab.id)}>
                 {tab.name}
               </a>
-            </li>)
-          )}
+            </li>
+          ))}
         </ul>
-        { currentTab === 'summary' ? (
-          <div className="flex flex-col md:flex-row text-sm">
-            <div className="md:grow my-5">
-              <p className="font-bold text-center">Overview</p>
-              <p className="text-gray-500">Some text here</p>
-            </div>
-            <div className="flex flex-col text-center">
-              <div className="md:max-w-3xs my-5">
-                <p className="font-bold">Summary</p>
-                <TotalChart goals={result.summary.totalGoals} bmps={result.summary.totalBMPs}></TotalChart>
-              </div>
-              <div className="md:max-w-3xs my-5">
-                <p className="font-bold">Completion Rate: {result.summary.completionRate}</p>
-                <CompletionRateChart completionRate={result.summary.completionRate}></CompletionRateChart>
-              </div>
-            </div>
-            
-          </div>
-        ) : null}
+        { currentTab === 'summary' ? <SummaryTab summary={result.summary} /> : null }
+        { currentTab === 'goals' ? <GoalsTab goals={result.goals} /> : null}
+        { currentTab === 'bmps' ? <BMPsTab bmps={result.bmps} /> : null}
+        { currentTab === 'implementation' ? <ImplementationTab implementation={result.implementation} /> : null}
+        { currentTab === 'monitoring' ? <MonitoringTab monitoring={result.monitoring} /> : null}
+        { currentTab === 'outreach' ? <OutreachTab outreach={result.outreach} /> : null}
+        { currentTab === 'geographicAreas' ? <GeographicAreasTab geographicAreas={result.geographicAreas} /> : null}
       </div>
     </div>
   )
