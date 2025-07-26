@@ -38,12 +38,14 @@ const tryToRemoveHeadersAndFooters = (text: string): string => {
     const lines = page.trim().split('\n');
 
     // Remove header if matched
-    if (commonHeaders.includes(lines[0].trim())) {
+    const firstLine = lines[0];
+    if (firstLine && commonHeaders.includes(firstLine.trim())) {
       lines.shift();
     }
 
     // Remove footer if matched
-    if (commonFooters.includes(lines[lines.length - 1].trim())) {
+    const lastLine = lines[lines.length - 1]
+    if (lastLine && commonFooters.includes(lastLine.trim())) {
       lines.pop();
     }
 
@@ -76,6 +78,9 @@ const customPageRender = (pageData: any) => pageData
 
 export const extract = async (document: Express.Multer.File): Promise<string> => {
   const extractedText = await pdf(fs.readFileSync(document.path), { pagerender: customPageRender });
+  if (!extractedText?.text?.trim()) {
+    throw new Error('The PDF appears to contain no extractable text. It may be scanned or of insufficient quality.')
+  }
 
   return tryToRemoveHeadersAndFooters(extractedText?.text || '');
 };
