@@ -19,7 +19,6 @@ type ReportResultProps = {
 
 export default function ReportResult({ result } : ReportResultProps) {
   const [currentTab, setCurrentTab] = useState('summary');
-  console.log(result);
   const tabs = [
     {id: 'summary', name: 'Summary'},
     {id: 'goals', name: 'Goals'},
@@ -29,6 +28,7 @@ export default function ReportResult({ result } : ReportResultProps) {
     {id: 'outreach', name: 'Outreach'},
     {id: 'geographicAreas', name: 'Geographical Areas'}
   ];
+
   return (
     <div className="my-15">
       <p className="text-sm font-semibold text-pretty text-gray-500 mx-5 overflow-hidden text-ellipsis">

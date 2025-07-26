@@ -14,10 +14,10 @@ const SummaryTab = ({ summary, overview }: SummaryTabProps) => {
       <p className="text-gray-500 text-justify">{ overview || '' }</p>
     </div>
     <div className="flex flex-col text-center">
-      <div className="md:max-w-3xs my-5">
+      <div className="my-5 max-h-50 mx-auto">
         <TotalChart goals={summary.totalGoals} bmps={summary.totalBMPs}></TotalChart>
       </div>
-      <div className="md:max-w-3xs my-5">
+      <div className="my-5 max-h-50 mx-auto">
         <CompletionRateChart completionRate={summary.completionRate}></CompletionRateChart>
       </div>
     </div>

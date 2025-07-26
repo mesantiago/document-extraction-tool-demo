@@ -7,7 +7,7 @@ type GeographicAreasTabProps = {
 
 const GeographicAreasTab = ({ geographicAreas }: GeographicAreasTabProps) => {
   return <div className="text-sm">
-    <p className="font-bold text-center my-5">Outreach Activities</p>
+    <p className="font-bold text-center my-5">Geographic Areas</p>
     <GeographicAreaTable geographicAreas={geographicAreas} />
   </div>;
 };

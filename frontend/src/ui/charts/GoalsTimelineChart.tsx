@@ -85,7 +85,7 @@ export default function GoalsTimelineChart ({ goals }: GoalsTimelineChartProps) 
         },
         ticks: {
           stepSize: 1,
-          callback: (_: string | number, index: number) => goals[index]?.description.slice(0, 30) + (goals[index]?.description.length > 30 ? '...' : ''),
+          callback: (_: string | number, index: number) => goals[index]?.description.slice(0, 30) || '' + (goals[index]?.description.length > 30 ? '...' : ''),
         },
         min: 1,
         max: goals.length,

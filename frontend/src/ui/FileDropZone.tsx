@@ -5,6 +5,8 @@ import {FileRejection, useDropzone} from 'react-dropzone';
 import ReportResult from './ReportResult';
 import Spinner from './Spinner';
 import { AxiosError } from 'axios';
+import PrintableReportResult from './PrintableReportResult';
+import PrintReportButton from './PrintReportButton';
 
 export type OnSuccessfulDropCallback = (file: File) => void;
 
@@ -72,8 +74,9 @@ export default function FileDropZone({ showDropZone, setDropZoneVisibility } : F
               </div>
             ) : (
               <div>
-                { extractedReport ? <ReportResult result={extractedReport}></ReportResult> : null }
-                <button className="bg-purple-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={reset}>
+                { extractedReport ? <ReportResult result={extractedReport} /> : null }
+                { extractedReport ? <PrintReportButton label='Print Result' component={<PrintableReportResult result={extractedReport}/>} /> : null }
+                <button className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" onClick={reset}>
                   Start over
                 </button>
               </div>

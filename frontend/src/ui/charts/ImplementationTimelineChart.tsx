@@ -85,7 +85,7 @@ export default function ImplementationTimelineChart ({ activities }: Implementat
         },
         ticks: {
           stepSize: 1,
-          callback: (_: string | number, index: number) => activities[index]?.activity.slice(0, 30) + (activities[index]?.activity.length > 30 ? '...' : ''),
+          callback: (_: string | number, index: number) => activities[index]?.activity.slice(0, 30) || '' + (activities[index]?.activity.length > 30 ? '...' : ''),
         },
         min: 1,
         max: activities.length,
