@@ -12,12 +12,14 @@ const PrintReportButton: React.FC<PrintReportButtonProps> = ({ component, label 
       alert('Unable to open print window');
       return;
     }
+    const stylePaths = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+      .map((link) => (link as HTMLLinkElement).href);
 
     const html = `
       <html>
         <head>
           <title>Print Preview</title>
-          <link href="/_next/static/css/app/layout.css" rel="stylesheet">
+          ${stylePaths.map(path => `<link href="${path}" rel="stylesheet">`).join(' ')}
           <style>
             body { font-family: sans-serif; padding: 2rem; }
             @media print {
